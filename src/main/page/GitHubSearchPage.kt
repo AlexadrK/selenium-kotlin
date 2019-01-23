@@ -28,28 +28,30 @@ import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory
 
 class GitHubSearchPage(private val driver: WebDriver) {
 
-//    @FindBy(xpath = "\"//a[text() = 'Users']\"") //"\"//a[text() = 'Users']\""
-//    private lateinit var usersFilter: WebElement
+    @FindBy(xpath = "//*[@id=\"js-pjax-container\"]/div/div[2]/nav[1]/a[8]") //"\"//a[text() = 'Users']\""
+    private lateinit var usersFilter: WebElement
 
-    @FindBy(xpath = "//*[text() = 'Christian Vasquez']") // "//span[text() = 'Christian Vasquez']/../a/em" // //*[text() = 'Christian Vasquez']
+    @FindBy(xpath = "//*[@id=\"user_search_results\"]/div/div/div[1]/div/a/em") // "//span[text() = 'Christian Vasquez']/../a/em" // //*[text() = 'Christian Vasquez'] // //*[text() = 'Christian Vasquez']
     private lateinit var userProfileLink: WebElement
+
+
 
     init {
         PageFactory.initElements(AjaxElementLocatorFactory(driver, 15), this)
     }
 
     fun searchFor(query: String) {
-        val searchBox = driver.findElement(By.xpath("//input[@placeholder='Search GitHub']"))
+        val searchBox = driver.findElement(By.xpath("//*[@id=\"search_form\"]/div/div/input[1]")) ////input[@placeholder='Search GitHub']
         searchBox.sendKeys(query, Keys.ENTER)
     }
 
     fun open() {
-        driver.get("https://github.com/search?")
+        driver.get("https://github.com/search?") //driver.get("https://github.com/search?")
     }
 
-//    fun filterByUsers() {
-//        usersFilter.click()
-//    }
+    fun filterByUsers() {
+        usersFilter.click()
+    }
 
     fun enterUserProfile() {
         userProfileLink.click()

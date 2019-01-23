@@ -9,27 +9,30 @@ import org.testng.annotations.Test
 
 class GitHubHomePageTest {
     private lateinit var driver: WebDriver
-    private lateinit var gitHubHomePage: GitHubHomePage
     private lateinit var gitHubSearchPage: GitHubSearchPage
+   // private lateinit var gitHubHomePage: GitHubHomePage
+
 
     @BeforeMethod
     fun setUp() {
         driver = ChromeDriver()
-        gitHubHomePage = GitHubHomePage(driver)
-        gitHubSearchPage.open() // gitHubHomePage.open()
+        //gitHubHomePage = GitHubHomePage(driver)
+        gitHubSearchPage = GitHubSearchPage(driver)
+        //gitHubHomePage.open()
+        gitHubSearchPage.open()
+
     }
 
-    @Test
+/*    @Test
     fun emptyTest(){
-    }
+    }*/
 
     @Test
     fun searchForUsername() {
+        gitHubSearchPage = GitHubSearchPage(driver)
         gitHubSearchPage.searchFor("chrisvasqm")
-        gitHubSearchPage = GitHubSearchPage(driver)  //gitHUbSearchPage
-        //gitHubSearchPage.filterByUsers()
+        gitHubSearchPage.filterByUsers()
         gitHubSearchPage.enterUserProfile()
-
         assertTrue(driver.currentUrl == "https://github.com/chrisvasqm")
     }
 
